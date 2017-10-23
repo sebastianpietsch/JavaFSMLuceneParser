@@ -1,0 +1,60 @@
+//  endlicher automat der einen txt parsed und den "status" also word zahl oder space ausgibt
+
+
+public class FSM {
+
+	
+	
+	enum FST {
+		
+		word, space, zahl;
+		
+	}
+	
+	static FST status = FST.word;
+	
+	final static String TestString = "Ich bin ein String manchmal kommt 1234 jap";
+	
+	public FSM () {
+		
+		}
+	
+
+	public static void parse (String s) {
+	
+		
+		for (int i = 0; i < s.length(); i++) {
+			
+			char ch1;
+			
+			ch1 = s.charAt(i);
+			
+			boolean b1;
+			
+			b1 = Character.isLetter(ch1);
+			
+			
+			if (b1) {
+				status = FST.word;
+			} else if (s.charAt(i) == ' ') {
+				
+				status = FST.space;		
+				
+			}	else {
+				
+				status = FST.zahl;
+				
+			};
+			
+			System.out.println(status);
+			
+		};
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		parse(TestString);
+	}
+}

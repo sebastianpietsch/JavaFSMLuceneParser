@@ -1,0 +1,33 @@
+package test;
+
+public class TestStrings {
+
+	public static void main(String[] args) {
+		
+		// Eingabe
+		String test = "<span>Hallo Welt</span>";
+		
+		// Ziel / Aufgabe
+		String ausgabe = "Buchstaben + Zahlen: 9; tleW ollaH ";
+	
+		
+		int pos1 = test.indexOf(">") +1;
+		int pos2 = test.lastIndexOf("<");
+	
+		String ergebnis = test.substring(pos1,pos2);
+		
+		int l = ergebnis.length();
+		
+		String umgekehrt =  "";
+		
+		for (int i = 0; i < l; i++) {
+			umgekehrt = ergebnis.charAt(i) + umgekehrt;
+		}
+		
+		System.out.println(ergebnis);
+		System.out.println(l);
+		System.out.println(umgekehrt);
+
+	}
+
+}

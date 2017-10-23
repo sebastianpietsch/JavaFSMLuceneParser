@@ -1,0 +1,50 @@
+package Regex;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Test {
+
+	public Test() {
+		
+		String s = IOUtil.readFile("C:\\Users\\Basti\\Desktop\\regextest.txt");
+		
+		//System.out.println(s);
+		
+		//String pattern = "[tT][eE][sS][tT]"; //groß oder klein
+		//String pattern = "[tT].[sS][tT]"; // punkt ist beliebiges Zeichen
+		//String pattern = " [tT].[sS][tT] "; //wie oben aber mit leerzeichen davor und dahinter
+		//String pattern = "[tT]\\w[sS][tT]";
+		//String pattern = "\\d{2}";// mit 2 zahlen drin
+		//String pattern = "[x]{3}";// mit 3 x drin
+		String pattern = "([L].....)"; //en gefolgt von leerzeichen oder .
+		
+		
+		Pattern r = Pattern.compile(pattern);
+		
+		Matcher m = r.matcher(s);
+		
+		zeigeErgebnis(s, m);
+	}
+
+	private void zeigeErgebnis(String s, Matcher m) {
+		if(m.find() ) {
+			System.out.println("Found value: " + m.group(0));
+			
+			while (m.find()) {
+				System.out.print(s.substring(
+						m.start(), m.end()));
+				System.out.println(" " + m.start() + " " + m.end());
+			}
+		} else {
+			System.out.println("NO MATCH");
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+			new Test();
+
+	}
+
+}

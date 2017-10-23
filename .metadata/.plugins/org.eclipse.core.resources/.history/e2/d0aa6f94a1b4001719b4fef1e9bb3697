@@ -1,0 +1,79 @@
+package Regex;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class IOUtil {
+
+	public static String readFile( String path) {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = null;
+		FileReader fr = null;
+		
+		try {
+			fr = new FileReader(path);
+			br = new BufferedReader(fr);
+			String s;
+			while ( (s = br.readLine() ) != null)
+				sb.append(s + System.getProperty("line.separator"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return sb.toString();
+	}
+	
+	
+	
+	
+	
+public static void writeFile( String path, String content) {
+		
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+		
+		try {
+			fw = new FileWriter(path);
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+public static String getUrl(String weburl) throws IOException{
+	
+	System.setProperty("http.proxyHost", "10.232.1.1");
+	System.setProperty("http.proxyPort", "8877");
+	
+	System.setProperty("https.proxyHost", "10.232.1.1");
+	System.setProperty("https.proxyPort", "8877");
+	
+	Document doc = Jsoup.connect(weburl)
+			.userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+				.get();
+	
+	return doc.html();
+}
+}
+	
+}

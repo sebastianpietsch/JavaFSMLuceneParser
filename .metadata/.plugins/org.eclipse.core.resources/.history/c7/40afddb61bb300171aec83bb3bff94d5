@@ -1,0 +1,40 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteFile {
+
+	private String path;
+	private boolean appendToFile = false;
+	
+	public WriteFile(String filePath) {
+		path = filePath;
+	}
+	
+	public WriteFile(String filePath, boolean appendValue) {
+		path = filePath;
+		appendToFile = appendValue;
+	}
+	
+	public void writeToFile (String conent) throws IOException {
+		
+		FileWriter write = new FileWriter(path, appendToFile);
+		
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String content = "This is the content2 to write into";
+		String path = "C:\Benutzer\Basti\Desktop\meinfile.txt";
+		
+		try {
+			writeToFile(path, getUrl("http://taz.de"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

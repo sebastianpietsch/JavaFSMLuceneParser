@@ -1,0 +1,76 @@
+package suche;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
+
+public class WebCrawler {
+	
+	static final int max = 4;
+	static int urlCount = 0;
+	
+	public static String getUrl(String weburl) throws IOException{
+		
+		if( urlCount ++ > 4) System.exit(0);
+		
+		System.setProperty("http.proxyHost", "10.232.1.1");
+		System.setProperty("http.proxyPort", "8877");
+		
+		System.setProperty("https.proxyHost", "10.232.1.1");
+		System.setProperty("https.proxyPort", "8877");
+		
+		Document doc = Jsoup.connect(weburl)
+				.userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+					.get();
+		
+		indexWebDoc(doc.text(), weburl);
+		ArrayList<String> list = getLinks(doc.html(), weburl);
+		
+		for (String u : list) getUrl( u);
+		
+		return doc.text();
+	}
+	
+	public static void indexWebDoc(String txt, String url) {
+		
+		
+		System.out.println(urlCount + " indexiere " + url + " mit Buchstaben: " + txt.length());
+	}
+
+
+public static ArrayList<String> getLinks(String html, String weburl) throws IOException{
+
+		ArrayList<String> list = new ArrayList<String>();
+		
+		
+		Document doc = Jsoup.parse(html);
+		
+		Elements links = doc.select("a[href]"); // a with href<br />
+		for ( Element u : links ) {
+			String s = u.attr("href");
+			if ( s.indexOf("http") < 0 )
+				list.add(weburl + "/" + s);  // mach elink absolut<br />
+			else list.add(s);
+		}
+		return list;
+	}
+
+
+	public static void main (String[] args) {
+		
+		try {
+			getUrl("http://taz.de");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}
